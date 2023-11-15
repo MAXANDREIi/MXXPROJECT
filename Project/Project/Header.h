@@ -8,9 +8,19 @@ private:
 	string cityName = "";
 	char* venueName = nullptr;
 	int capacity = 0;
-	static int const MAX_CAPACITY = 5000;
+	static int const MAX_CAPACITY = 4000;
+	int zones = 0;
 
 public:
+	void setZone(int zones)
+	{
+		if (zones < 1)
+			throw exception("Put more zones");
+		this->zones = zones;
+	}
+	int getZones() {
+		return zones;
+	}
 	void setCapacity(int capacity)
 	{
 		if (capacity > MAX_CAPACITY)
