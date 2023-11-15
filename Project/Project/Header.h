@@ -7,8 +7,19 @@ class Location {
 private:
 	string cityName = "";
 	char* venueName = nullptr;
+	int capacity = 0;
+	static int const MAX_CAPACITY = 5000;
 
 public:
+	void setCapacity(int capacity)
+	{
+		if (capacity > MAX_CAPACITY)
+			throw exception("Capacity too high!");
+		this->capacity = capacity;
+	}
+	int getCapacity() {
+		return capacity;
+	}
 	void setCityName(string cityName) {
 		if (cityName.size() <= 1 || cityName[0]<'A' || cityName[0]>'Z')
 			throw exception("Invalid");
@@ -37,6 +48,6 @@ public:
 
 class Event {
 	string eventName = "";
-
+    
 
 };
