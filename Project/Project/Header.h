@@ -58,6 +58,7 @@ public:
 		this->setVenueName(venueName);
 		this->setZone(zones);
 	}
+	Location() {}
 };
 
 class Event {
