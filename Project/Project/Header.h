@@ -10,8 +10,8 @@ private:
 
 public:
 	void setCityName(string cityName) {
-		if (cityName.size() <= 1)
-			throw exception("Name too short");
+		if (cityName.size() <= 1 || cityName[0]<'A' || cityName[0]>'Z')
+			throw exception("Invalid");
 		this->cityName = cityName;
 
 	}
@@ -19,8 +19,8 @@ public:
 		return cityName;
 	}
 	void setVenueName(const char* venueName) {
-		if (strlen(venueName) <= 1)
-			throw exception("Name too short");
+		if (strlen(venueName) <= 1 || venueName[0] < 'A' || venueName[0]>'Z')
+			throw exception("Invalid");
 		delete[] this->venueName;
 		this->venueName = new char[strlen(venueName) + 1];
 		strcpy_s(this->venueName, strlen(venueName) + 1, venueName);
