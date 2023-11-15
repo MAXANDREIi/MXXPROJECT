@@ -31,7 +31,7 @@ public:
 		return capacity;
 	}
 	void setCityName(string cityName) {
-		if (cityName.size() <= 1 || cityName[0]<'A' || cityName[0]>'Z')
+		if (cityName.size() <= 1 || cityName[0] < 'A' || cityName[0]>'Z')
 			throw exception("Invalid");
 		this->cityName = cityName;
 
@@ -47,14 +47,18 @@ public:
 		strcpy_s(this->venueName, strlen(venueName) + 1, venueName);
 
 	}
-	 char* getVenueName() {
+	char* getVenueName() {
 		char* copy = new char[strlen(this->venueName) + 1];
 		strcpy_s(copy, strlen(this->venueName) + 1, this->venueName);
 		return copy;
 	}
-
+	Location(string cityName, char* venueName, int capacity, int zones) {
+		this->setCapacity(capacity);
+		this->setCityName(cityName);
+		this->setVenueName(venueName);
+		this->setZone(zones);
+	}
 };
-
 
 class Event {
 	string eventName = "";
