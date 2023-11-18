@@ -48,6 +48,8 @@ public:
 
 	}
 	char* getVenueName() {
+		if (venueName == nullptr)
+			throw exception();
 		char* copy = new char[strlen(this->venueName) + 1];
 		strcpy_s(copy, strlen(this->venueName) + 1, this->venueName);
 		return copy;
@@ -61,8 +63,3 @@ public:
 	Location() {}
 };
 
-class Event {
-	string eventName = "";
-    
-
-};
