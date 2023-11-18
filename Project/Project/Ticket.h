@@ -45,6 +45,10 @@ public:
         return this->price;
     }
 
+    void setTicketType(TicketType ticketType)
+    {
+        this->ticketType = ticketType;
+    }
     string getTicketType() {
         switch (ticketType) {
         case TicketType::VIP:
@@ -68,7 +72,7 @@ public:
     }
     Ticket(double price,TicketType ticketType) :ticketId(generateTicketID()){
         this->setTicketPrice(price);
-        this->getTicketType();
+        this->setTicketType(ticketType);
     }
 
 
