@@ -6,7 +6,7 @@ using namespace std;
 int main() {
 	Ticket ticket;
 	cout << ticket.getTicketID()<<endl;
-	Ticket ticket2;
-	cout << ticket2.getTicketID();
+	Ticket ticket2(200,TicketType::LAWN);
+	cout << ticket2.getTicketPrice()<<endl<<ticket2.getTicketType();
 	return 0;
 }

@@ -32,14 +32,44 @@ private:
 
 
 public:
+   
 
     const char* getTicketID() {
         return Util::copyString(this->ticketId);
     }
 
-    
-    Ticket() :ticketId(generateTicketID()) {}
+    void setTicketPrice(double price) {
+        this->price = price;
+    }
+    double getTicketPrice() {
+        return this->price;
+    }
 
+    string getTicketType() {
+        switch (ticketType) {
+        case TicketType::VIP:
+            return "VIP";
+            break;
+        case TicketType::TRIBUNE:
+            return "Tribune";
+            break;
+        case TicketType::LAWN:
+            return "Lawn";
+            break;
+        case TicketType::BOX:
+            return "Box";
+            break;
+        default:
+            return "Unknown";
+        }
+    }
+
+    Ticket() :ticketId(generateTicketID()){
+    }
+    Ticket(double price,TicketType ticketType) :ticketId(generateTicketID()){
+        this->setTicketPrice(price);
+        this->getTicketType();
+    }
 
 
 };
