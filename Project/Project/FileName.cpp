@@ -1,15 +1,12 @@
 #include <iostream>
 using namespace std;
-#include "Header.h"
+#include "Location.h"
+#include "Event.h"
+#include "Ticket.h"
 int main() {
-	Location location;
-	location.setCityName("Bucuresti");
-	location.setVenueName("Parcul Cismigiu");
-	cout<<location.getCityName();
-	cout << endl;
-	cout<<location.getVenueName();
-
-
-
+	Ticket ticket;
+	cout << ticket.getTicketID()<<endl;
+	Ticket ticket2;
+	cout << ticket2.getTicketID();
 	return 0;
 }
