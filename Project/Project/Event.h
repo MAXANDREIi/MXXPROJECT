@@ -35,17 +35,17 @@ public:
 	char* getEventTime() {
 		return Util::copyString(this->time);
 	}
-	/*Event& operator=(const Event& other)
+	Event& operator=(const Event& other)
 	{
 		if (&other == this)
 			throw exception();
 		
-			this->name = other.name;
-			strcpy_s(this->date, strlen(other.date), other.date);
-			strcpy_s(this->time, strlen(other.time), other.time);
+			this->setEventName(string(other.name));
+			this->setEventDate(other.date);
+			this->setEventTime(other.time);
 			return *this;
 	}
-	*/
+	
 	Event() {}
 
 	Event(string name, const char* date,const char* time) {
