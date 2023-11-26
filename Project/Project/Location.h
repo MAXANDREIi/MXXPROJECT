@@ -60,6 +60,21 @@ public:
 		this->setVenueName(venueName);
 		this->setZone(zones);
 	}
+	~Location() {
+		delete[] this->venueName;
+	}
+	bool operator==(const Location& other)
+	{
+		return (cityName == other.cityName &&
+			    (venueName == nullptr && other.venueName == nullptr ||
+				(venueName != nullptr && other.venueName != nullptr && 
+				strcmp(venueName, other.venueName) == 0)) &&
+			     capacity == other.capacity &&
+			     zones == other.zones);
+	}
+	bool operator!=(const Location& location) {
+		return !(*this==location);
+	}
 	Location() {}
 	friend void operator<<(ostream& console, Location& location);
 	friend void operator>>(istream& console, Location& location);
