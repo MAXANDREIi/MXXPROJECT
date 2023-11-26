@@ -65,12 +65,12 @@ public:
 	}
 	bool operator==(const Location& other)
 	{
-		return (cityName == other.cityName &&
-			    (venueName == nullptr && other.venueName == nullptr ||
-				(venueName != nullptr && other.venueName != nullptr && 
-				strcmp(venueName, other.venueName) == 0)) &&
-			     capacity == other.capacity &&
-			     zones == other.zones);
+		return (this->cityName == other.cityName &&
+			    (this->venueName == nullptr && other.venueName == nullptr ||
+				(this->venueName != nullptr && other.venueName != nullptr && 
+				strcmp(this->venueName, other.venueName) == 0)) &&
+			     this->capacity == other.capacity &&
+			     this->zones == other.zones);
 	}
 	bool operator!=(const Location& location) {
 		return !(*this==location);
@@ -79,7 +79,7 @@ public:
 	friend void operator<<(ostream& console, Location& location);
 	friend void operator>>(istream& console, Location& location);
 };
-void operator>>(istream& console, Location& location) {
+void operator>>(istream& console,  Location& location) {
 	cout << endl << " Choose City :";
 	char buffer[2000];
 	console.getline(buffer, 2000);
@@ -89,8 +89,12 @@ void operator>>(istream& console, Location& location) {
 	console.getline(buffer, 2000);
 	console.clear();
 	location.setVenueName(buffer);
-	cout << endl << " Choose the capacity: "; console >> location.capacity;
-	cout << endl << " Choose how many zones does the stage have: "; console >> location.zones;
+	
+	cout << endl << " Choose the capacity: ";
+	console>>location.capacity;
+
+	cout << endl << " Choose how many zones does the stage have: "; 
+	console>>location.zones;
 
 }
 void operator<<(ostream& console, Location& location) {

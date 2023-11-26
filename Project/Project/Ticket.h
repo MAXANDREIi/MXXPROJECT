@@ -38,13 +38,10 @@ private:
 public:
    
 
-
     const char* getTicketID() {
         return Util::copyString(this->ticketId);
     }
 
-   
- 
 
     void setTicketPrice(double price) {
         switch (this->ticketType) {
@@ -103,7 +100,7 @@ public:
     friend void operator<<(ostream& console, Ticket &ticket);
     friend void operator>>(istream& console, Ticket &ticket);
 
-
+   
 
 };
 bool Ticket::isOccupiedRow[250] = { 0 };
