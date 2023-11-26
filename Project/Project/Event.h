@@ -46,6 +46,9 @@ public:
 			return *this;
 	}
 	
+	bool operator==(const Event& other) {
+		return (this->name == other.name && this->date == other.date && this->time == other.time);
+	}
 	Event() {}
 
 	Event(string name, const char* date,const char* time) {
