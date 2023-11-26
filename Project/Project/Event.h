@@ -35,8 +35,17 @@ public:
 	char* getEventTime() {
 		return Util::copyString(this->time);
 	}
-
-
+	/*Event& operator=(const Event& other)
+	{
+		if (&other == this)
+			throw exception();
+		
+			this->name = other.name;
+			strcpy_s(this->date, strlen(other.date), other.date);
+			strcpy_s(this->time, strlen(other.time), other.time);
+			return *this;
+	}
+	*/
 	Event() {}
 
 	Event(string name, const char* date,const char* time) {
@@ -44,4 +53,33 @@ public:
 		this->setEventTime(time);
 		this->setEventName(name);
 	}
+	friend void operator<<(ostream& console, Event& event);
+	friend void operator>>(istream& console, Event& event);
 };
+
+void operator<<(ostream& console, Event& event) {
+	console << endl << "Name of event: " << event.getEventName();
+	console << endl << "Event date: " << event.getEventDate();
+	console << endl << "Time of the event: " << event.getEventTime();
+
+}
+
+void operator>>(istream& console, Event& event) {
+	cout << "Event name is: "; 
+	char buffer[2000];
+	console.getline(buffer, 2000);
+	console.clear();
+	event.setEventName(buffer);
+	cout<<endl << "Event date is: ";
+
+	console.getline(buffer, 2000);
+	console.clear();
+	event.setEventDate(buffer);
+	cout << endl << "Event time is: ";
+	
+	console.getline(buffer, 2000);
+	console.clear();
+	event.setEventTime(buffer);
+
+
+}
