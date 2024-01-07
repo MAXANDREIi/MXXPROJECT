@@ -1,11 +1,11 @@
 #pragma once
-//number, type, ID, price
+
 #include "Util.h"
 #include <iostream>
 #include <string>
 using namespace std;
 
-enum class TicketType{VIP,TRIBUNE,LAWN,BOX};
+enum class TicketType{VIP,NORMAL};
 
 class Ticket {
 private:
@@ -13,9 +13,10 @@ private:
     TicketType ticketType;
     double price = 0.0;
     char* ticketId=nullptr;
-    bool validTicket = 0;
     int row = 0;
     int seat = 0;
+    bool isValid = 1;
+   
    static bool isOccupiedSeat[250];
    static bool isOccupiedRow[250];
 
@@ -26,10 +27,13 @@ private:
         for (int i = 0; i < idLenght; i++) {
             id[i] = digits[rand() % (sizeof(digits) - 1)];
         }
+        
         id[idLenght] = '\0';
         delete[] ticketId;
         ticketId = new char[strlen(id) + 1];
         strcpy_s(ticketId, strlen(id) + 1, id);
+       
+      
         return ticketId;
     }
      
@@ -41,20 +45,17 @@ public:
     const char* getTicketID() {
         return Util::copyString(this->ticketId);
     }
-
+    
+ 
+ 
 
     void setTicketPrice(double price) {
         switch (this->ticketType) {
         case TicketType::VIP:
-            this->price = 99.99;
-            break;
-        case TicketType::TRIBUNE:
-            this->price = 69.99;
-            break;
-        case TicketType::LAWN:
             this->price = 49.99;
             break;
-        case TicketType::BOX:
+       
+        case TicketType::NORMAL:
             this->price = 29.99;
             break;
         default:
@@ -77,14 +78,9 @@ public:
         case TicketType::VIP:
             return "VIP";
             break;
-        case TicketType::TRIBUNE:
-            return "Tribune";
-            break;
-        case TicketType::LAWN:
-            return "Lawn";
-            break;
-        case TicketType::BOX:
-            return "Box";
+        
+        case TicketType::NORMAL:
+            return "NORMAL";
             break;
         default:
             return "Unknown";
@@ -100,9 +96,12 @@ public:
     friend void operator<<(ostream& console, Ticket &ticket);
     friend void operator>>(istream& console, Ticket &ticket);
 
-   
+    void Valid() {
+        cout << this->isValid;
+   }
 
 };
+
 bool Ticket::isOccupiedRow[250] = { 0 };
 bool Ticket::isOccupiedSeat[250] = { 0 };
 void operator>>(istream& console, Ticket& ticket) {
@@ -118,7 +117,7 @@ void operator>>(istream& console, Ticket& ticket) {
         ticket.isOccupiedSeat[ticket.seat] = 1;
     }
     int input;
-    cout << " Choose ticket type (0 for VIP, 1 for TRIBUNE, 2 for LAWN, 3 for BOX): ";
+    cout << " Choose ticket type (0 for VIP, 1 for NORMAL): ";
     console >> input;
     ticket.ticketType = static_cast<TicketType>(input);
     ticket.setTicketPrice(ticket.price);

@@ -9,18 +9,10 @@ private:
 	char* venueName = nullptr;
 	int capacity = 0;
 	static int const MAX_CAPACITY = 4000;
-	int zones = 0;
+	
 
 public:
-	void setZone(int zones)
-	{
-		if (zones < 1)
-			throw exception("Put more zones");
-		this->zones = zones;
-	}
-	int getZones() {
-		return zones;
-	}
+
 	void setCapacity(int capacity)
 	{
 		if (capacity > MAX_CAPACITY)
@@ -58,7 +50,7 @@ public:
 		this->setCapacity(capacity);
 		this->setCityName(cityName);
 		this->setVenueName(venueName);
-		this->setZone(zones);
+	
 	}
 	~Location() {
 		delete[] this->venueName;
@@ -69,8 +61,7 @@ public:
 			    (this->venueName == nullptr && other.venueName == nullptr ||
 				(this->venueName != nullptr && other.venueName != nullptr && 
 				strcmp(this->venueName, other.venueName) == 0)) &&
-			     this->capacity == other.capacity &&
-			     this->zones == other.zones);
+			     this->capacity == other.capacity );
 	}
 	bool operator!=(const Location& location) {
 		return !(*this==location);
@@ -92,15 +83,15 @@ void operator>>(istream& console,  Location& location) {
 	
 	cout << endl << " Choose the capacity: ";
 	console>>location.capacity;
-
-	cout << endl << " Choose how many zones does the stage have: "; 
-	console>>location.zones;
+	console.getline(buffer, 2000);
+	console.clear();
+	
 
 }
 void operator<<(ostream& console, Location& location) {
 	cout << endl << " City :"; console << location.getCityName();
 	cout << endl << "Venue name:"; console << location.getVenueName();
 	cout << endl << "Capacity: "; console << location.getCapacity();
-	cout << endl << "Zones: "; console << location.getZones();
+	
 }
 
