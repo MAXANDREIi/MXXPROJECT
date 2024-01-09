@@ -3,6 +3,7 @@
 #include "Util.h"
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 enum class TicketType{VIP,NORMAL};
@@ -15,7 +16,7 @@ private:
     char* ticketId=nullptr;
     int row = 0;
     int seat = 0;
-    bool isValid = 1;
+ 
     static int idIndex;
     static char allTicketIDS[500][9];
    static bool isOccupiedSeat[250];
@@ -107,7 +108,37 @@ public:
                 ok = 1;
         return ok;
     }
+    void saveData(ofstream& file) {
+        if (!file.is_open())
+        {
+            throw exception("File not opened");
+        }
+        file.write((char*)&this->row, sizeof(int));
+        file.write((char*)&this->seat, sizeof(int));
+        file.write((char*)&this->ticketType, sizeof(Ticket));
+        int idSize = strlen(ticketId);
+        file.write((char*)&idSize, sizeof(int));
+        file.write(this->ticketId, sizeof(char) * (strlen(ticketId) + 1));
+        file.write((char*)&this->price, sizeof(double));
+    }
+    void readData(ifstream& file) {
+        if (!file.is_open())
+        {
+            throw exception("File not opened");
+        }
+        file.read((char*)&this->row, sizeof(int));
+        file.read((char*)&this->seat, sizeof(int));
+        file.read((char*)&this->ticketType, sizeof(Ticket));
+        int idSize = strlen(ticketId);
+        file.read((char*)&idSize, sizeof(int));
+        delete this->ticketId;
+        ticketId = new char [idSize];
+        file.read((char*)this->ticketId, sizeof(char) * (idSize+1));
+        file.read((char*)&this->price, sizeof(int));
 
+
+
+    }
 };
 int Ticket::idIndex = 0;
 char Ticket::allTicketIDS[500][9] = { " " };
@@ -136,8 +167,11 @@ void operator>>(istream& console, Ticket& ticket) {
 
 }
 void operator<<(ostream& console,  Ticket& ticket) {
+    console << endl << "Ticket Row: " << ticket.row;
+    console << endl << "Ticket Seat: " << ticket.seat;
     console << endl << "Ticket ID: " << ticket.getTicketID();
     console << endl << ticket.getTicketType();
     console << endl << "Ticket price: " << ticket.getTicketPrice()<<endl;
+
 
 }
