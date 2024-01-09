@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "Util.h"
+#include <fstream>
 using namespace std;
 
 class Event {
@@ -56,8 +57,44 @@ public:
 		this->setEventTime(time);
 		this->setEventName(name);
 	}
+
+	void saveData(ofstream& file) {
+		if (!file.is_open()) {
+			throw exception ("file not opened");
+		}
+		int nameSize = sizeof(this->name);
+		int dateSize = strlen(this->date);
+		int timeSize = strlen(this->time);
+		file.write((char*)&nameSize, sizeof(int));
+		file.write(this->name.c_str(),sizeof(char)*(strlen(this->name.c_str()) + 1));
+		file.write((char*)&dateSize, sizeof(int));
+		file.write(this->date, sizeof(char) * (strlen(this->date) + 1));
+		file.write((char*)&timeSize, sizeof(int));
+		file.write(this->time, sizeof(char) * (strlen(this->time) + 1));
+
+
+	}
+
+	void readData(ifstream& file) {
+
+		if (!file.is_open())
+		{
+			throw exception("file not opened");
+		}
+		int nameSize = sizeof(this->name);
+		int dateSize = strlen(this->date);
+		int timeSize = strlen(this->time);
+		file.read((char*)&nameSize, sizeof(int));
+		file.read((char*)this->name.c_str(), sizeof(char) * (strlen(this->name.c_str()) + 1));
+		file.read((char*)&dateSize, sizeof(int));
+		file.read(this->date, sizeof(char) * (strlen(this->date) + 1));
+		file.read((char*)&timeSize, sizeof(int));
+		file.read(this->time, sizeof(char) * (strlen(this->time) + 1));
+	}
+
 	friend void operator<<(ostream& console, Event& event);
 	friend void operator>>(istream& console, Event& event);
+
 };
 
 void operator<<(ostream& console, Event& event) {
